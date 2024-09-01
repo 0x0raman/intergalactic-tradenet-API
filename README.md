@@ -20,8 +20,8 @@ This project is an API for managing an intergalactic trade network. It handles t
 
 1. **Clone the repository**:
     ```bash
-    git clone https://github.com/your-username/your-repo-name.git
-    cd your-repo-name
+    https://github.com/0x0raman/intergalactic-tradenet-circlepe.git
+    cd intergalactic-tradenet-circlepe
     ```
 
 2. **Install Node.js dependencies**:
