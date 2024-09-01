@@ -20,7 +20,7 @@ This project is an API for managing an intergalactic trade network. It handles t
 
 1. **Clone the repository**:
     ```bash
-    https://github.com/0x0raman/intergalactic-tradenet-circlepe.git
+    https://github.com/0x0raman/intergalactic-tradenet-circlepe-API.git
     cd intergalactic-tradenet-circlepe
     ```
 
