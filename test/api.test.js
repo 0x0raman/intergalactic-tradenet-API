@@ -1,7 +1,7 @@
 const request = require('supertest');
 const chai = require('chai');
 const should = chai.should();
-const server = require('../index'); // Import the HTTP server
+const server = require('../index');
 
 describe('API Endpoints', () => {
 
@@ -29,7 +29,7 @@ describe('API Endpoints', () => {
 
     describe('GET /api/trades/:transactionId', () => {
         it('should retrieve details of a trade transaction', (done) => {
-            const transactionId = 1; // Use an appropriate ID for testing
+            const transactionId = 1;
 
             request(server)
                 .get(`/api/trades/${transactionId}`)
@@ -67,7 +67,7 @@ describe('API Endpoints', () => {
 
     describe('GET /api/cargo/:shipmentId', () => {
         it('should retrieve cargo shipment details', (done) => {
-            const shipmentId = 1; // Use an appropriate ID for testing
+            const shipmentId = 1;
 
             request(server)
                 .get(`/api/cargo/${shipmentId}`)
@@ -83,7 +83,7 @@ describe('API Endpoints', () => {
 
     describe('GET /api/inventory/:stationId', () => {
         it('should retrieve inventory levels for a space station', (done) => {
-            const stationId = 1; // Use an appropriate ID for testing
+            const stationId = 1; 
 
             request(server)
                 .get(`/api/inventory/${stationId}`)
@@ -91,8 +91,8 @@ describe('API Endpoints', () => {
                 .end((err, res) => {
                     if (err) return done(err);
                     res.body.should.be.a('object');
-                    res.body.should.have.property('stationId');  // Updated property to match expected response
-                    res.body.should.have.property('levels');  // Updated property to match expected response
+                    res.body.should.have.property('stationId');  
+                    res.body.should.have.property('levels');  
                     done();
                 });
         });
@@ -106,9 +106,9 @@ describe('API Endpoints', () => {
                 .end((err, res) => {
                     if (err) return done(err);
                     res.body.should.be.a('object');
-                    res.body.should.have.property('tradeVolume');  // Updated property to match expected response
-                    res.body.should.have.property('activeShipments');  // Updated property to match expected response
-                    res.body.should.have.property('recentActivity');  // Updated property to match expected response
+                    res.body.should.have.property('tradeVolume');  
+                    res.body.should.have.property('activeShipments');  
+                    res.body.should.have.property('recentActivity');  
                     done();
                 });
         });

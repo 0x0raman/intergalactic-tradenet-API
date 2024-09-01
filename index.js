@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const tradeService = require('./services/tradeService');
 const cargoService = require('./services/cargoService');
-const inventoryService = require('./services/inventoryService');  // Registered here
+const inventoryService = require('./services/inventoryService');
 const updatesService = require('./services/updatesService');
 const errorHandler = require('./services/utils/errorHandler');
 const logger = require('./services/utils/logger');
@@ -11,7 +11,6 @@ const app = express();
 
 app.use(bodyParser.json());
 
-// Registering routes
 app.use('/api', tradeService);
 app.use('/api', cargoService);
 app.use('/api', inventoryService);

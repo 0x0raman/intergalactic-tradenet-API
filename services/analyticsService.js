@@ -43,5 +43,4 @@ const pushRealTimeUpdates = async () => {
     }
 };
 
-// Periodically push updates to connected clients
 setInterval(pushRealTimeUpdates, 5000);
