@@ -151,3 +151,23 @@ This API is designed to manage an intergalactic trade network, facilitating trad
 - **AWS RDS**: Use AWS RDS to create and manage the PostgreSQL database.
 - **Render**: Host the API and Kafka services on Render.
 - **AWS EC2**: Deploy the API and Kafka on an AWS EC2 instance.
+
+## Known Limitations and Potential Improvements
+
+- **Scaling**: The current implementation may require optimizations to handle extreme load efficiently.
+- **Security**: There is a need to enhance security by implementing robust authentication and authorization mechanisms.
+- **UI Integration**: Extending the project with a frontend dashboard would provide better user interaction and improve usability.
+
+## Why PostgreSQL and Kafka?
+
+### PostgreSQL
+- **Reliability**: PostgreSQL is known for its robustness, reliability, and ACID compliance, which are crucial for maintaining data integrity in an intergalactic trade network where transactions must be consistent and accurate.
+- **Advanced Features**: PostgreSQL offers advanced features like complex queries, full-text search, and support for JSON data types, making it versatile for handling diverse data structures within the application.
+- **Scalability**: With support for large datasets and a wide variety of indexing techniques, PostgreSQL can scale efficiently to meet the growing needs of the project.
+- **Open Source**: As an open-source database, PostgreSQL provides flexibility without the licensing costs associated with other enterprise-grade databases like Oracle.
+
+### Kafka
+- **Real-time Data Streaming**: Kafka excels at handling high-throughput, real-time data streams, making it ideal for managing the flow of trade and cargo data across the network.
+- **Decoupled Architecture**: By using Kafka, the system can achieve a loosely coupled architecture where producers (data generators) and consumers (data processors) are independent, allowing for better scalability and fault tolerance.
+- **Durability and Fault Tolerance**: Kafka ensures data durability and fault tolerance through replication, which is essential in a distributed system like the intergalactic trade network where data loss is not acceptable.
+- **Scalability**: Kafka is designed to handle large volumes of data and scale out horizontally, making it suitable for the growing needs of the project as the network expands.
