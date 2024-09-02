@@ -1,5 +1,9 @@
 # Intergalactic Trade Network API
 
+### HOSTED SITE: https://intergalactic-tradenet-circlepe-api.onrender.com/
+
+### NOTE: The main branch is for local deployment, change branch to aws_host which was configured for using AWS RDS PostgreSQL DB and their after deployed the branch on render.
+
 This project is an API for managing an intergalactic trade network. It handles trade transactions, cargo shipments, inventory levels at space stations, and provides real-time updates on trade and cargo status. The project uses Node.js, Express, Kafka, and PostgreSQL as its primary technologies.
 
 ## Features
@@ -14,7 +18,6 @@ This project is an API for managing an intergalactic trade network. It handles t
 - **Node.js**: Ensure you have Node.js installed. You can download it [here](https://nodejs.org/).
 - **PostgreSQL**: The API uses PostgreSQL for database management.
 - **Kafka**: Kafka is used for message brokering between services.
-- **Docker**: Docker is recommended for running Kafka, Zookeeper, and PostgreSQL instances.
 
 ## Setup and Installation
 
@@ -31,19 +34,19 @@ This project is an API for managing an intergalactic trade network. It handles t
 
 3. **Environment Variables**: Create a `.env` file in the root directory of the project. Configure it with the following variables:
     ```plaintext
-    PORT=3000
-    DB_HOST=localhost
-    DB_USER=your_db_user
-    DB_PASSWORD=your_db_password
-    DB_NAME=your_db_name
-    KAFKA_BROKER=localhost:9092
+    DB_USER=your_postgres_user
+    DB_HOST=your_rds_endpoint
+    DB_NAME=your_database_name
+    DB_PASSWORD=your_database_password
+    DB_PORT=5432
     ```
 
 4. **Run PostgreSQL**: If not using Docker, make sure PostgreSQL is running, and the database is created with the appropriate schema.
 
-5. **Run Kafka**: Ensure Kafka and Zookeeper are running. If you're using Docker, you can start Kafka and Zookeeper using the provided `docker-compose.yml` file:
+5. **Run Kafka & Zookeeper**: configure the properties of both and run via the following command
     ```bash
-    docker-compose up -d
+    .\bin\windows\zookeeper-server-start.bat .\config\zookeeper.properties
+    .\bin\windows\kafka-server-start.bat .\config\server.properties
     ```
 
 6. **Start the API**:
@@ -51,7 +54,7 @@ This project is an API for managing an intergalactic trade network. It handles t
     npm start
     ```
 
-7. **Run Tests**:
+7. **Run Tests**: configured the api.test.js to run tests on all api endpoints their by validating the endpoints
     ```bash
     npm test
     ```
@@ -101,4 +104,6 @@ This project is an API for managing an intergalactic trade network. It handles t
     - Retrieve real-time updates on trade and cargo status.
 
 ## Deployment
+- **AWS RDS**: Create and deploy PostgreSQL using AWS RDS.
+- **Render**: Use Render to host and deploy with kafka running locally
 
