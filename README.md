@@ -1,6 +1,7 @@
 # Intergalactic Trade Network API
 
 ### HOSTED SITE: https://intergalactic-tradenet-circlepe-api.onrender.com/
+This is a free instance that will spin down with inactivity, which can delay requests by 50 seconds or more.
 
 ### NOTE: The main branch is for local deployment, change branch to aws_host which was configured for using AWS RDS PostgreSQL DB and their after deployed the branch on render.
 
