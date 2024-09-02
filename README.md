@@ -3,9 +3,10 @@
 ### HOSTED SITE: https://intergalactic-tradenet-circlepe-api.onrender.com/
 This is a free instance that will spin down with inactivity, which can delay requests by 50 seconds or more.
 
-### NOTE: The main branch is for local deployment, change branch to aws_host which was configured for using AWS RDS PostgreSQL DB and their after deployed the branch on render.
+### NOTE: The main branch is for local deployment, change branch to aws_host which is configured for using AWS RDS PostgreSQL DB and their after deployed the branch on render.
+### NOTE 2: Access the Document folder and open POSTMAN.pdf, due to sensitive information, the pdf is passwd protected, use company's name in small caps to unlock. 
 
-This project is an API for managing an intergalactic trade network. It handles trade transactions, cargo shipments, inventory levels at space stations, and provides real-time updates on trade and cargo status. The project uses Node.js, Express, Kafka, and PostgreSQL as its primary technologies.
+This project is an API for managing an intergalactic trade network. It handles trade transactions, cargo shipments, inventory levels at space stations, and provides real-time updates on trade and cargo status. The project uses Node.js, Express, AWS RDS: PostgreSQL, Kafka and Zookeeper as its primary technologies.
 
 ## Features
 
@@ -37,25 +38,55 @@ This project is an API for managing an intergalactic trade network. It handles t
     ```plaintext
     DB_USER=your_postgres_user
     DB_HOST=your_rds_endpoint
-    DB_NAME=your_database_name
+    DB_NAME=intergalactic_trade
     DB_PASSWORD=your_database_password
     DB_PORT=5432
     ```
 
-4. **Run PostgreSQL**: If not using Docker, make sure PostgreSQL is running, and the database is created with the appropriate schema.
+4. **Run PostgreSQL**: Run the service, here's the schema for intergalactic_trade DB.
+   ```bash
+   CREATE DATABASE intergalactic_trade;
+   ```
+   ```bash
+   \c intergalactic_trade
+   CREATE TABLE trades (
+    trade_id SERIAL PRIMARY KEY,
+    station_id INT,
+    planet_id INT,
+    goods VARCHAR(255),
+    quantity INT,
+    status VARCHAR(50),
+    timestamp TIMESTAMP
+   );
+   CREATE TABLE cargo (
+    shipment_id SERIAL PRIMARY KEY,
+    trade_id INT REFERENCES trades(trade_id),
+    cargo_details TEXT,
+    current_location VARCHAR(255),
+    status VARCHAR(50),
+    estimated_delivery TIMESTAMP
+   );
+   CREATE TABLE inventory (
+    inventory_id SERIAL PRIMARY KEY,
+    station_id INT,
+    goods VARCHAR(255),
+    quantity INT
+   );
+   ```
 
-5. **Run Kafka & Zookeeper**: configure the properties of both and run via the following command
+
+6. **Run Kafka & Zookeeper**: configure the properties of both and run via the following command
     ```bash
     .\bin\windows\zookeeper-server-start.bat .\config\zookeeper.properties
     .\bin\windows\kafka-server-start.bat .\config\server.properties
     ```
 
-6. **Start the API**:
+7. **Start the API**:
     ```bash
     npm start
     ```
 
-7. **Run Tests**: configured the api.test.js to run tests on all api endpoints their by validating the endpoints
+8. **Run Tests**: configured the api.test.js to run tests on all api endpoints their by validating the endpoints
     ```bash
     npm test
     ```
@@ -106,5 +137,4 @@ This project is an API for managing an intergalactic trade network. It handles t
 
 ## Deployment
 - **AWS RDS**: Create and deploy PostgreSQL using AWS RDS.
-- **Render**: Use Render to host and deploy with kafka running locally
-
+- **Render**: Use Render to host and deploy with kafka.
