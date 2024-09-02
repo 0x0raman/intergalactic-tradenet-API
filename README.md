@@ -36,7 +36,7 @@ This API is designed to manage an intergalactic trade network, facilitating trad
 1. **Clone the Repository**:
     ```bash
     git clone https://github.com/0x0raman/intergalactic-tradenet-API.git
-    cd intergalactic-tradenet-circlepe
+    cd intergalactic-tradenet-API
     ```
 
 2. **Install Dependencies**:
