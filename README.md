@@ -2,6 +2,7 @@
 
 ### HOSTED SITE: https://intergalactic-tradenet-circlepe-api.onrender.com/
 This is a free instance that will spin down with inactivity, which can delay requests by 50 seconds or more.
+### AWS EC2 HOSTED SITE: http://13.234.116.91:3000/
 
 ### NOTE: The main branch is for local deployment, change branch to aws_host which is configured for using AWS RDS PostgreSQL DB and their after deployed the branch on render.
 ### NOTE 2: Access the Document folder and open POSTMAN.pdf, due to sensitive information, the pdf is passwd protected, use company's name in small caps to unlock. 
@@ -138,3 +139,4 @@ This project is an API for managing an intergalactic trade network. It handles t
 ## Deployment
 - **AWS RDS**: Create and deploy PostgreSQL using AWS RDS.
 - **Render**: Use Render to host and deploy with kafka.
+- **AWS Ec2**: Configured Ec2 to host and deploy with kafka.
