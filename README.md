@@ -1,40 +1,50 @@
 # Intergalactic Trade Network API
 
-### HOSTED SITE: https://intergalactic-tradenet-circlepe-api.onrender.com/
-This is a free instance that will spin down with inactivity, which can delay requests by 50 seconds or more.
+### Hosted Sites
 
-### NOTE: The main branch is for local deployment, change branch to aws_host which is configured for using AWS RDS PostgreSQL DB and their after deployed the branch on render.
-### NOTE 2: Access the Document folder and open POSTMAN.pdf, due to sensitive information, the pdf is passwd protected, use company's name in small caps to unlock. 
+- **Render**: [Intergalactic Trade Network API](https://intergalactic-tradenet-circlepe-api.onrender.com/)
+  - Note: This is a free instance that may experience delays of up to 50 seconds due to inactivity.
+- **AWS EC2**: [Intergalactic Trade Network API](http://13.234.116.91:3000/)
 
-This project is an API for managing an intergalactic trade network. It handles trade transactions, cargo shipments, inventory levels at space stations, and provides real-time updates on trade and cargo status. The project uses Node.js, Express, AWS RDS: PostgreSQL, Kafka and Zookeeper as its primary technologies.
+### Branch Information
 
-## Features
+- **Main Branch**: For local deployment.
+- **aws_host Branch**: Configured for deployment using AWS RDS PostgreSQL DB, hosted on Render.
+- **ec2 Branch**: Configured for deployment on an AWS EC2 Linux instance.
+
+> **Important**: The `POSTMAN.pdf` file in the `Document` folder contains sensitive information. It is password-protected. Use the company's name in lowercase to unlock.
+
+## Project Overview
+
+This API is designed to manage an intergalactic trade network, facilitating trade transactions, cargo shipments, and inventory management across space stations. The system also provides real-time updates on trade and cargo status.
+
+### Key Features
 
 - **Trade Management**: Create and retrieve trade transactions.
-- **Cargo Management**: Create and retrieve cargo shipments.
-- **Inventory Management**: Retrieve inventory levels for space stations.
-- **Real-time Updates**: Get real-time updates on trade volumes and cargo status.
+- **Cargo Management**: Manage cargo shipments with the ability to create and retrieve shipment details.
+- **Inventory Management**: Retrieve inventory levels at various space stations.
+- **Real-Time Updates**: Get live updates on trade volumes and cargo statuses.
 
-## Requirements
+## Prerequisites
 
-- **Node.js**: Ensure you have Node.js installed. You can download it [here](https://nodejs.org/).
-- **PostgreSQL**: The API uses PostgreSQL for database management.
-- **Kafka**: Kafka is used for message brokering between services.
+- **Node.js**: Download and install from [here](https://nodejs.org/).
+- **PostgreSQL**: Required for database management.
+- **Kafka**: Used for message brokering between services.
 
 ## Setup and Installation
 
-1. **Clone the repository**:
+1. **Clone the Repository**:
     ```bash
-    https://github.com/0x0raman/intergalactic-tradenet-circlepe-API.git
+    git clone https://github.com/0x0raman/intergalactic-tradenet-API.git
     cd intergalactic-tradenet-circlepe
     ```
 
-2. **Install Node.js dependencies**:
+2. **Install Dependencies**:
     ```bash
     npm install
     ```
 
-3. **Environment Variables**: Create a `.env` file in the root directory of the project. Configure it with the following variables:
+3. **Environment Variables**: Create a `.env` file in the root directory with the following configuration:
     ```plaintext
     DB_USER=your_postgres_user
     DB_HOST=your_rds_endpoint
@@ -43,65 +53,66 @@ This project is an API for managing an intergalactic trade network. It handles t
     DB_PORT=5432
     ```
 
-4. **Run PostgreSQL**: Run the service, here's the schema for intergalactic_trade DB.
-   ```bash
-   CREATE DATABASE intergalactic_trade;
-   ```
-   ```bash
-   \c intergalactic_trade
-   CREATE TABLE trades (
-    trade_id SERIAL PRIMARY KEY,
-    station_id INT,
-    planet_id INT,
-    goods VARCHAR(255),
-    quantity INT,
-    status VARCHAR(50),
-    timestamp TIMESTAMP
-   );
-   CREATE TABLE cargo (
-    shipment_id SERIAL PRIMARY KEY,
-    trade_id INT REFERENCES trades(trade_id),
-    cargo_details TEXT,
-    current_location VARCHAR(255),
-    status VARCHAR(50),
-    estimated_delivery TIMESTAMP
-   );
-   CREATE TABLE inventory (
-    inventory_id SERIAL PRIMARY KEY,
-    station_id INT,
-    goods VARCHAR(255),
-    quantity INT
-   );
-   ```
+4. **Database Setup**: Set up the PostgreSQL database using the following SQL commands:
+    ```sql
+    CREATE DATABASE intergalactic_trade;
 
+    \c intergalactic_trade
 
-6. **Run Kafka & Zookeeper**: configure the properties of both and run via the following command
-    ```bash
-    .\bin\windows\zookeeper-server-start.bat .\config\zookeeper.properties
-    .\bin\windows\kafka-server-start.bat .\config\server.properties
+    CREATE TABLE trades (
+        trade_id SERIAL PRIMARY KEY,
+        station_id INT,
+        planet_id INT,
+        goods VARCHAR(255),
+        quantity INT,
+        status VARCHAR(50),
+        timestamp TIMESTAMP
+    );
+
+    CREATE TABLE cargo (
+        shipment_id SERIAL PRIMARY KEY,
+        trade_id INT REFERENCES trades(trade_id),
+        cargo_details TEXT,
+        current_location VARCHAR(255),
+        status VARCHAR(50),
+        estimated_delivery TIMESTAMP
+    );
+
+    CREATE TABLE inventory (
+        inventory_id SERIAL PRIMARY KEY,
+        station_id INT,
+        goods VARCHAR(255),
+        quantity INT
+    );
     ```
 
-7. **Start the API**:
+5. **Run Kafka & Zookeeper**: Ensure Kafka and Zookeeper are configured properly, then start them:
+    ```bash
+    ./bin/windows/zookeeper-server-start.bat ./config/zookeeper.properties
+    ./bin/windows/kafka-server-start.bat ./config/server.properties
+    ```
+
+6. **Start the API**:
     ```bash
     npm start
     ```
 
-8. **Run Tests**: configured the api.test.js to run tests on all api endpoints their by validating the endpoints
+7. **Run Tests**: Validate the API endpoints using the provided test script:
     ```bash
     npm test
     ```
 
-## Endpoints
+## API Endpoints
 
 ### Trade Endpoints
 
 - **POST /api/trades**
     - Create a new trade.
-    - **Body Parameters**: 
+    - **Body Parameters**:
         - `stationId`: ID of the space station.
         - `planetId`: ID of the planet involved in the trade.
-        - `goods`: The goods being traded.
-        - `quantity`: Quantity of the goods.
+        - `goods`: Goods being traded.
+        - `quantity`: Quantity of goods.
 
 - **GET /api/trades/:transactionId**
     - Retrieve details of a specific trade transaction.
@@ -112,11 +123,11 @@ This project is an API for managing an intergalactic trade network. It handles t
 
 - **POST /api/cargo**
     - Create a new cargo shipment.
-    - **Body Parameters**: 
+    - **Body Parameters**:
         - `shipmentId`: ID of the shipment.
         - `content`: Contents of the cargo.
         - `destination`: Destination of the cargo.
-        - `status`: Status of the shipment.
+        - `status`: Shipment status.
 
 - **GET /api/cargo/:shipmentId**
     - Retrieve details of a specific cargo shipment.
@@ -136,5 +147,7 @@ This project is an API for managing an intergalactic trade network. It handles t
     - Retrieve real-time updates on trade and cargo status.
 
 ## Deployment
-- **AWS RDS**: Create and deploy PostgreSQL using AWS RDS.
-- **Render**: Use Render to host and deploy with kafka.
+
+- **AWS RDS**: Use AWS RDS to create and manage the PostgreSQL database.
+- **Render**: Host the API and Kafka services on Render.
+- **AWS EC2**: Deploy the API and Kafka on an AWS EC2 instance.
