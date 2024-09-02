@@ -1,19 +1,19 @@
 module.exports = {
     db: {
-        user: 'postgres',
-        host: 'localhost',
-        database: 'intergalactic_trade',
-        password: '12345',
-        port: 5432,
+        user: process.env.DB_USER || 'postgres',
+        host: process.env.DB_HOST || 'localhost',
+        database: process.env.DB_NAME || 'intergalactic_trade',
+        password: process.env.DB_PASSWORD || '12345',
+        port: process.env.DB_PORT || 5432,
     },
     kafka: {
-        host: 'localhost:9092',
+        host: process.env.KAFKA_HOST || 'localhost:9092',
         topics: {
-            tradeInitiated: 'trade-initiated',
-            cargoCreated: 'cargo-created',
+            tradeInitiated: process.env.KAFKA_TOPIC_TRADE_INITIATED || 'trade-initiated',
+            cargoCreated: process.env.KAFKA_TOPIC_CARGO_CREATED || 'cargo-created',
         }
     },
     websocket: {
-        port: 8080
+        port: process.env.WEBSOCKET_PORT || 8080
     }
 };
