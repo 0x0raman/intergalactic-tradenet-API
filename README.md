@@ -5,6 +5,7 @@
 - **Render**: [Intergalactic Trade Network API](https://intergalactic-tradenet-circlepe-api.onrender.com/)
   - Note: This is a free instance that may experience delays of up to 50 seconds due to inactivity.
 - **AWS EC2**: [Intergalactic Trade Network API](http://13.234.116.91:3000/)
+  - Note: The EC2 instance stopped on 04-Sept-24 due to charge overhead for public IPv4 address and MKS Service for kafka.
 
 ### Branch Information
 
